@@ -9,8 +9,8 @@ from goban import ChessboardState
 N = 15
 IMAGE_PATH = 'UI/'
 
-WIDTH = 540
-HEIGHT = 540
+WIDTH = 1012
+HEIGHT = 900
 MARGIN = 22
 GRID = (WIDTH - 2 * MARGIN) / (N - 1)
 PIECE = 32
@@ -29,7 +29,7 @@ class GameRender(object):
         pygame.display.set_caption('五子棋AI')
 
         # UI 资源
-        self.__ui_chessboard = pygame.image.load(IMAGE_PATH + 'board.jpg').convert()
+        self.__ui_chessboard = pygame.image.load(IMAGE_PATH + '1.jpg').convert()
         self.__ui_piece_black = pygame.image.load(IMAGE_PATH + 'black.png').convert_alpha()
         self.__ui_piece_white = pygame.image.load(IMAGE_PATH + 'white.png').convert_alpha()
 

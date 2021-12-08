@@ -1,5 +1,5 @@
+#coding:utf-8
 from enum import Enum
-
 
 N = 15
 
@@ -31,76 +31,33 @@ class GoBang(object):
         if self.have_five(self.__currentI, self.__currentJ, self.__currentState):
             return self.__currentState
         else:
-            return ChessboardState.EMPT
-            return True
+            return ChessboardState.EMPTY
 
+    def count_on_direction(self, i, j, xdirection, ydirection, color):
+        count = 0
+        for step in range(1, 5): #除当前位置外,朝对应方向再看4步
+            if xdirection != 0 and (j + xdirection * step < 0 or j + xdirection * step >= N):
+                break
+            if ydirection != 0 and (i + ydirection * step < 0 or i + ydirection * step >= N):
+                break
+            if self.__chessMap[i + ydirection * step][j + xdirection * step] == color:
+                count += 1
+            else:
+                break
+        return count
 
-    def have_five(self, current_i, current_j):
+    def have_five(self, i, j, color):
         #四个方向计数 横 竖 左斜 右斜
-        hcount = 1
-        vcount = 1
-        lbhcount = 1
-        rbhcount = 1
+        directions = [[(-1, 0), (1, 0)], \
+                      [(0, -1), (0, 1)], \
+                      [(-1, 1), (1, -1)], \
+                      [(-1, -1), (1, 1)]]
 
-        temp = ChessboardState.EMPTY
+        for axis in directions:
+            axis_count = 1
+            for (xdirection, ydirection) in axis:
+                axis_count += self.count_on_direction(i, j, xdirection, ydirection, color)
+                if axis_count >= 5:
+                    return True
 
-        #H-左
-        for j in range(current_j - 1, -1, -1):  #横向往左 from (current_j - 1) to 0
-            temp = self.__chessMap[current_i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            hcount = hcount + 1
-        #H-右
-        for j in range(current_j + 1, N):  #横向往右 from (current_j + 1) to N
-            temp = self.__chessMap[current_i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            hcount = hcount + 1
-        #H-结果
-        if hcount >= 5:
-            return True
-        #V-上
-        for i in range(current_i - 1, -1, -1):  # from (current_i - 1) to 0
-            temp = self.__chessMap[i][current_j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            vcount = vcount + 1
-        #V-下
-        for i in range(current_i + 1, N):  # from (current_i + 1) to N
-            temp = self.__chessMap[i][current_j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            vcount = vcount + 1
-        #V-结果
-        if vcount >= 5:
-            return True
-        #LB-上
-        for i, j in zip(range(current_i - 1, -1, -1), range(current_j - 1, -1, -1)):  
-            temp = self.__chessMap[i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            lbhcount = lbhcount + 1
-        #LB-下
-        for i, j in zip(range(current_i + 1, N), range(current_j + 1, N)):  
-            temp = self.__chessMap[i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            lbhcount = lbhcount + 1
-        #LB-结果
-        if lbhcount >= 5:
-            return True
-        #RB-上
-        for i, j in zip(range(current_i - 1, -1, -1), range(current_j + 1, N)):  
-            temp = self.__chessMap[i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            rbhcount = rbhcount + 1
-        #RB-下
-        for i, j in zip(range(current_i + 1, N), range(current_j - 1, -1, -1)):  
-            temp = self.__chessMap[i][j]
-            if temp == ChessboardState.EMPTY or temp != self.__currentState:
-                break
-            rbhcount = rbhcount + 1
-        #LB-结果
-        if rbhcount >= 5:
-            return True
+        return False

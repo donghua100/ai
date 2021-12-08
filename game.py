@@ -1,8 +1,9 @@
 import pygame
 from pygame.locals import *
 from sys import exit
-from goban import GoBang
+from goban import GoBang,ChessboardState
 from render import GameRender
+
 #from gobang_ai import GobangAI
 
 
