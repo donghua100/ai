@@ -1,7 +1,7 @@
 #coding:utf-8
 from enum import Enum
 
-N = 15
+N = 19
 
 class ChessboardState(Enum):
     EMPTY = 0

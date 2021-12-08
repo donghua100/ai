@@ -6,12 +6,12 @@ from pygame.locals import *
 from goban import GoBang
 from goban import ChessboardState
 
-N = 15
+N = 19
 IMAGE_PATH = 'UI/'
 
 WIDTH = 1012
 HEIGHT = 900
-MARGIN = 22
+MARGIN = 52
 GRID = (WIDTH - 2 * MARGIN) / (N - 1)
 PIECE = 32
 
