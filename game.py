@@ -7,6 +7,8 @@ from render import GameRender
 #from gobang_ai import GobangAI
 
 
+import os
+os.environ["SDL_VIDEODRIVER"]='dummy'
 
 if __name__ == '__main__': 
     gobang = GoBang()
